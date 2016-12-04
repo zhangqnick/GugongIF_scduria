@@ -96,6 +96,22 @@ public class ZYCNetController : MonoBehaviour
         {
             m_connection = "Disconnected";
         }
+    }
 
+    /// <summary>
+    /// 向服务器发送消息
+    /// </summary>
+    /// <param name="mstr"></param>
+    public void sendMessage(string mstr)
+    {
+        if (isConnectNetwork() == false)
+            return;
+        if(mstr != "")
+        {
+            if(m_tpNetworkClient != null)
+            {
+                m_tpNetworkClient.Send(mstr);
+            }
+        }
     }
 }

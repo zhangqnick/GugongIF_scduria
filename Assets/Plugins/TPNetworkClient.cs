@@ -47,9 +47,9 @@ public class TPNetworkClient {
             //Initializes a new instance of the TcpClient class and connects to the specified port on the specified host
             m_tcpClient = new TcpClient(m_ipAddress, m_port);
 			//m_tcpClient = new TcpClient("10.120.64.108", m_port);
-			m_tcpClient.NoDelay = true;	// Disable buffering of the data.
-			// Get the data stream.
-			m_networkStream = m_tcpClient.GetStream();
+			m_tcpClient.NoDelay = true; // Disable buffering of the data.当 NoDelay 是 false, 、 TcpClient 不通过网络发送数据包，直到它已收集了大量的出站数据。
+                                        // Get the data stream.
+            m_networkStream = m_tcpClient.GetStream();
 		} catch(Exception e) {
 			mgr.PutErrorMessage("Failed to connect to the server : " + e.Message);
 			return false;

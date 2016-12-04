@@ -277,7 +277,7 @@ public class TPSharedInfo {
 		// Set up and start the message receiving thread.
 		m_recvThread = new TPRecvThread();
 		if(!m_recvThread.Initialize(ipAddress, port)){
-			m_recvThread.Terminate();
+			m_recvThread.Terminate();//clear;
 			m_recvThread = null;
 			return false;
 		}

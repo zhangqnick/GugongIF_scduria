@@ -3,9 +3,11 @@ using System.Collections;
 
 public class ZYCEvent : MonoBehaviour {
 
+    private ZYCNetController zycNetController;
+
 	// Use this for initialization
 	void Start () {
-	
+        zycNetController = GetComponent<ZYCNetController>();
 	}
 	
 	// Update is called once per frame
@@ -27,6 +29,20 @@ public class ZYCEvent : MonoBehaviour {
         com_str = getSplitCommandStr(com);
         com_name = getCommandName(com_str[0].ToLower());
         com_prm = getParameterValues(com_str[1]);
+
+        int isDebugMode = PlayerPrefs.GetInt("debug_mode");
+
+        int num;
+        int snum;
+
+        switch (com_name[0])
+        {
+            case "send_message":
+                zycNetController.sendMessage(com_str[1]);
+                break;
+            
+                
+        }
 
     }
 
@@ -56,14 +72,14 @@ public class ZYCEvent : MonoBehaviour {
     string[] getCommandName(string str)
     {
         string[] split;
-        split = str.Split();
+        split = str.Split(","[0]);
         return split;
     }
 
     string[] getParameterValues(string str)
     {
         string[] split;
-        split = str.Split();
+        split = str.Split(","[0]);
         return split;
     }
 }
