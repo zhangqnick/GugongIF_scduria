@@ -1,19 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ZYCEvent : MonoBehaviour {
+public class ZYCEvent : MonoBehaviour
+{
 
     private ZYCNetController zycNetController;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         zycNetController = GetComponent<ZYCNetController>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (zycNetController.GetTPSharedInfo() == null)
+            return;
+        int n = zycNetController.TPSInfoCheckControlEvents();
+        string str = "";
+
+        if(n > 0)
+        {
+            for(int i = 0;i < n; i++)
+            {
+                str = zycNetController.TPSInfoGetControlEvent(i);
+                //命令的接受出口
+                exeCommand(str);
+            }
+            zycNetController.TPSInfoResetControlEvent();
+        }
+    }
+
+    public void OnDisable()
+    {
+        if(zycNetController)
+        {
+            zycNetController.disconnectNetwork();
+        }
+        Application.Quit();
+    }
+
 
     /// <summary>
     /// 命令出发的接口
@@ -21,7 +48,7 @@ public class ZYCEvent : MonoBehaviour {
     /// <param name="com"></param>
     public void exeCommand(string com)
     {
-        
+
         string[] com_str;//命令的全体
         string[] com_name;//命令的报头
         string[] com_prm;//命令的尾部
@@ -40,10 +67,13 @@ public class ZYCEvent : MonoBehaviour {
             case "send_message":
                 zycNetController.sendMessage(com_str[1]);
                 break;
-            
-                
+            case "exit_app":
+                if (isDebugMode == 1)
+                    OnDisable();
+                break;
+            default:
+                break;
         }
-
     }
 
     /// <summary>
@@ -51,7 +81,7 @@ public class ZYCEvent : MonoBehaviour {
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-     string[] getSplitCommandStr(string str)
+    string[] getSplitCommandStr(string str)
     {
         string[] split = new string[2];
         split[0] = str;

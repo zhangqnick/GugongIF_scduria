@@ -114,4 +114,63 @@ public class ZYCNetController : MonoBehaviour
             }
         }
     }
+
+    public void disconnectNetwork()
+    {
+        if(m_tpNetworkClient != null)
+        {
+            m_tpNetworkClient.Terminate();
+            m_tpNetworkClient = null;
+        }
+        if(m_tpShardInfo != null)
+        {
+            m_tpShardInfo.Terminate();
+            m_tpShardInfo = null;
+        }
+
+        m_connection = "Disconnected";
+    }
+
+    /// <summary>
+    /// 得到TPSharedInfo是否有信息
+    /// </summary>
+    /// <returns></returns>
+    public TPSharedInfo GetTPSharedInfo()
+    {
+        return m_tpShardInfo;
+    }
+
+    /// <summary>
+    /// 得到命令的数量
+    /// </summary>
+    /// <returns></returns>
+    public int TPSInfoCheckControlEvents()
+    {
+        if (m_tpShardInfo == null || m_connection == "Disconnected")
+            return 0;
+        return m_tpShardInfo.CheckControlEvents();
+    }
+
+    /// <summary>
+    /// 得到的命令内容
+    /// </summary>
+    /// <param name="i"></param>
+    /// <returns></returns>
+    public string TPSInfoGetControlEvent(int i)
+    {
+        if (m_tpShardInfo == null || m_connection == "Disconnected")
+            return null;
+        return m_tpShardInfo.GetControlEvent(i);
+    }
+
+
+    /// <summary>
+    /// 命令的销毁与清除
+    /// </summary>
+    public void TPSInfoResetControlEvent()
+    {
+        if (m_tpShardInfo == null || m_connection == "Disconnected")
+            return;
+        m_tpShardInfo.ResetControlEvent();
+    }
 }
