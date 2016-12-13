@@ -23,6 +23,9 @@ public class ZYCNetController : MonoBehaviour
     void Awake()
     {
         autoConnectBak = autoConnect;
+        PlayerPrefs.SetString("ip_address", "192.167.1.199");
+        PlayerPrefs.SetString("port_number", "28000");
+        PlayerPrefs.SetInt("debug_mode", 1);
     }
 
     public void Start()
