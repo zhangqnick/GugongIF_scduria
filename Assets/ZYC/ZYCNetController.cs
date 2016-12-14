@@ -18,6 +18,9 @@ public class ZYCNetController : MonoBehaviour
 
     private string m_connection = "";
 
+    /// <summary>
+    /// 自动连接
+    /// </summary>
     private bool autoConnectBak;
     // Use this for initialization
     void Awake()

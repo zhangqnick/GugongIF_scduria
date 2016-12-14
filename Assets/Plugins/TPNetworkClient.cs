@@ -24,11 +24,11 @@ public class TPNetworkClient {
     /// </summary>
     /// <returns></returns>
     public bool Initialize() {
-        
-		TPTabletUIManager mgr = TPTabletUIManager.GetInstance();//UI，xml方式的初始化
-		
-		// Set up the data buffer.
-		m_buffer = new byte [256];
+
+        TPTabletUIManager mgr = TPTabletUIManager.GetInstance();//UI，xml方式的初始化
+
+        // Set up the data buffer.
+        m_buffer = new byte [256];
 		int i;
 		for(i=0; i<m_buffer.Length; i++)
 			m_buffer[i] = 0;
