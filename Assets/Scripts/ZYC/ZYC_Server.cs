@@ -21,7 +21,7 @@ public class ZYC_Server : MonoBehaviour {
 
         try
         {
-            IPAddress ip = IPAddress.Parse("192.168.1.110");
+            IPAddress ip = IPAddress.Parse("192.167.1.113");
             IPEndPoint endpoint = new IPEndPoint(ip, 1025);
 
             sck.Bind(endpoint);

@@ -17,7 +17,7 @@ public class ZYC_Client : MonoBehaviour {
     void Start () { 
         clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         //这里的ip地址，端口号都是服务端绑定的相关数据。
-        IPAddress ip = IPAddress.Parse("192.168.1.110");
+        IPAddress ip = IPAddress.Parse("192.167.1.113");
         IPEndPoint endpoint = new IPEndPoint(ip,1025);
         try
         {
