@@ -6,9 +6,25 @@ using UnityEngine.UI;
 using System.Net;
 using System;
 
-public class ZYC_Server : MonoBehaviour {
-
+public class ZYC_Server : MonoBehaviour
+{
+    /// <summary>
+    /// 主机ip
+    /// </summary>
+    private IPAddress _homeIp;
     Socket sck = null;
+
+    public void Start()
+    {
+        string name = Dns.GetHostName();
+        IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
+        foreach (IPAddress ipa in ipadrlist)
+        {
+            if (ipa.AddressFamily == AddressFamily.InterNetwork)
+                _homeIp = ipa;
+        }
+    }
+
 
     /// <summary>
     /// 开启服务器
@@ -17,12 +33,10 @@ public class ZYC_Server : MonoBehaviour {
     {
         sck = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        //IPAddress[] ipv4 = Dns.GetHostAddresses(Dns.GetHostName());
-
         try
         {
-            IPAddress ip = IPAddress.Parse("192.168.1.110");
-            IPEndPoint endpoint = new IPEndPoint(ip, 1025);
+            //IPAddress ip = IPAddress.Parse("192.168.1.110");
+            IPEndPoint endpoint = new IPEndPoint(_homeIp, 1025);
 
             sck.Bind(endpoint);
             sck.Listen(54);
@@ -34,7 +48,7 @@ public class ZYC_Server : MonoBehaviour {
             thread.IsBackground = true;
             thread.Start();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine("Winsock error: " + e.ToString());
         }
@@ -44,7 +58,7 @@ public class ZYC_Server : MonoBehaviour {
     //Socket服务监听函数
     void ConnectServer()
     {
-        while(true)
+        while (true)
         {
             //创建一个接收客户端通信的Socket
             Socket accSck = sck.Accept();
