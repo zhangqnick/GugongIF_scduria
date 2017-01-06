@@ -108,7 +108,22 @@ public class ZYC_Server : MonoBehaviour
 
                 ZYC_SocketMaster.socketDir.Add(str, newSocket);
             }
+            if(buffer[0] == 1)//表示投票方式
+            {
+                string str = System.Text.Encoding.UTF8.GetString(buffer, 1, receiveLength - 1);//注意，是从下标为1的开始转成字符串，为0的是标识。
+
+                ////
+                ////这个是可以改动的
+                switch(str)
+                {
+                    case "right":
+                        Debug.Log("right");
+                        break;
+                    case "left":
+                        Debug.Log("left");
+                        break;
+                }
+            }
         }
     }
-
 }
