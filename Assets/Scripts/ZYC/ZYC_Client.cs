@@ -69,6 +69,10 @@ public class ZYC_Client : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// 投票器的发送端
+    /// </summary>
+    /// <param name="branchtxt"></param>
     public void SendMsgBranch(string branchtxt)
     {
         if (!clientSocket.Connected)

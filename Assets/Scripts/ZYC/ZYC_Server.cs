@@ -108,13 +108,13 @@ public class ZYC_Server : MonoBehaviour
 
                 ZYC_SocketMaster.socketDir.Add(str, newSocket);
             }
-            if(buffer[0] == 1)//表示投票方式
+            if (buffer[0] == 1)//表示投票方式
             {
                 string str = System.Text.Encoding.UTF8.GetString(buffer, 1, receiveLength - 1);//注意，是从下标为1的开始转成字符串，为0的是标识。
 
                 ////
                 ////这个是可以改动的
-                switch(str)
+                switch (str)
                 {
                     case "right":
                         Debug.Log("right");
@@ -125,5 +125,23 @@ public class ZYC_Server : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public void startcot()
+    {
+        StartCoroutine(Corout());
+    }
+
+    IEnumerator Corout()
+    {
+        yield return new WaitForSeconds(5);
+        Debug.Log("end" + GlobalManager.Instance.ChooseA);
+    }
+
+    public void test()
+    {
+        GlobalManager.Instance.ChooseA++;
+        Debug.Log(GlobalManager.Instance.ChooseA);
     }
 }
