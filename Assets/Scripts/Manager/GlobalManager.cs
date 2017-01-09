@@ -3,9 +3,9 @@ using System.Collections;
 
 public class  GlobalManager : Singleton<GlobalManager> {
 
-    private int _chooseA;
+    private static int _chooseA;
 
-    public int ChooseA
+    public static int ChooseA
     {
         set
         {
@@ -17,8 +17,8 @@ public class  GlobalManager : Singleton<GlobalManager> {
         }
     }
 
-    private int _chooseB;
-    public int ChooseB
+    private static int _chooseB;
+    public static int ChooseB
     {
         get
         {

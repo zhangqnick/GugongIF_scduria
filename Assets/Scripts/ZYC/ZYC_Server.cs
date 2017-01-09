@@ -13,6 +13,9 @@ public class ZYC_Server : MonoBehaviour
     /// </summary>
     private IPAddress _homeIp;
     Socket sck = null;
+    public UIManager uiMananger;
+
+    ArrayList msgList;
 
     public void Start()
     {
@@ -23,6 +26,8 @@ public class ZYC_Server : MonoBehaviour
             if (ipa.AddressFamily == AddressFamily.InterNetwork)
                 _homeIp = ipa;
         }
+
+        msgList = new ArrayList();
     }
 
 
@@ -117,10 +122,18 @@ public class ZYC_Server : MonoBehaviour
                 switch (str)
                 {
                     case "right":
+                       uiMananger.SetChooseB();
                         Debug.Log("right");
                         break;
                     case "left":
+                        uiMananger.SetChooseA();
                         Debug.Log("left");
+                        break;
+                    case "end":
+                        if (GlobalManager.ChooseA > GlobalManager.ChooseB)
+                            Debug.Log("left win");
+                        else
+                            Debug.Log("right win");
                         break;
                 }
             }
@@ -136,12 +149,6 @@ public class ZYC_Server : MonoBehaviour
     IEnumerator Corout()
     {
         yield return new WaitForSeconds(5);
-        Debug.Log("end" + GlobalManager.Instance.ChooseA);
-    }
-
-    public void test()
-    {
-        GlobalManager.Instance.ChooseA++;
-        Debug.Log(GlobalManager.Instance.ChooseA);
+        Debug.Log("end" + GlobalManager.ChooseA);
     }
 }

@@ -13,7 +13,7 @@ public class ZYC_Client : MonoBehaviour {
     //Thread thread = null;
 
     public InputField _usernameText;
-    //public IPAddress _homeIp;
+    public IPAddress _homeIp;
 
     // Use this for initialization
     void Start () { 
@@ -22,15 +22,15 @@ public class ZYC_Client : MonoBehaviour {
 
         //在这里不能用此系统
         ////这里的ip地址，端口号都是服务端绑定的相关数据。
-        //string name = Dns.GetHostName();
-        //IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
-        //foreach (IPAddress ipa in ipadrlist)
-        //{
-        //    if (ipa.AddressFamily == AddressFamily.InterNetwork)
-        //        _homeIp = ipa;
-        //}
-        IPAddress ip = IPAddress.Parse("192.168.1.104");
-        IPEndPoint endpoint = new IPEndPoint(ip, 1025);
+        string name = Dns.GetHostName();
+        IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
+        foreach (IPAddress ipa in ipadrlist)
+        {
+            if (ipa.AddressFamily == AddressFamily.InterNetwork)
+                _homeIp = ipa;
+        }
+        //IPAddress ip = IPAddress.Parse("192.168.1.104");
+        IPEndPoint endpoint = new IPEndPoint(_homeIp, 1025);
         try
         {
             clientSocket.Connect(endpoint);//链接有端口号与IP地址确定服务端.
@@ -84,8 +84,20 @@ public class ZYC_Client : MonoBehaviour {
         clientSocket.Send(newbuffer);//发送新数组中的数据
     }
 
-    public void changescence()
+    //没有用了
+    //public void changescence()
+    //{
+    //    SceneManager.LoadScene(0);
+    //}
+
+    public void startcot()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(Corout());
+    }
+
+    IEnumerator Corout()
+    {
+        yield return new WaitForSeconds(10);
+        SendMsgBranch("end");
     }
 }
