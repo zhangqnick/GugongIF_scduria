@@ -8,21 +8,30 @@ public class UIManager : Singleton<UIManager>
     public Text TextChooseA;
     public Text TextChooseB;
 
-    int a;
-    int b;
+    int a = 0;
+    int b = 0;
 
     public void Update()
     {
-        TextChooseA.text = a.ToString();
-        TextChooseB.text = b.ToString();
+        if (a != GlobalManager.ChooseA)
+        {
+            a = GlobalManager.ChooseA;
+            TextChooseA.text = a.ToString();
+
+        }
+        if (b != GlobalManager.ChooseB)
+        {
+            b = GlobalManager.ChooseB;
+            TextChooseB.text = b.ToString();
+        }
     }
 
     public void SetChooseA()
     {
-         a += 1;
+         GlobalManager.ChooseA++;
     }
     public void SetChooseB()
     {
-         b += GlobalManager.ChooseB;
+         GlobalManager.ChooseB++;
     }
 }
