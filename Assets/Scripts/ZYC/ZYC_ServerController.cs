@@ -18,6 +18,7 @@ public class ZYC_ServerController : MonoBehaviour
             for(int i = 0; i < n;i++)
             {
                 str = ZYCServerGetMsg(i);
+            }
             ZYCServerReset();
         }
 
